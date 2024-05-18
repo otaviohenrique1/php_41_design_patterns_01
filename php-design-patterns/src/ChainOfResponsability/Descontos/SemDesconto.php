@@ -4,13 +4,14 @@ namespace Alura\DesignPattern\ChainOfResponsability\Descontos;
 
 use Alura\DesignPattern\ChainOfResponsability\Orcamento;
 
-class DescontoMaisDe5Itens extends Desconto
+class SemDesconto extends Desconto
 {
+  public function __construct() {
+    parent::__construct(null);
+  }
+
   public function calculaDesconto(Orcamento $orcamento): float
   {
-    if ($orcamento->quantidadeItens > 5) {
-      return $orcamento->valor * 0.1;
-    }
-    return $this->proximoDesconto->calculaDesconto($orcamento);
+    return 0;
   }
 }
