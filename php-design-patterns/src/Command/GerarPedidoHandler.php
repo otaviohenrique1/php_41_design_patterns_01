@@ -4,6 +4,7 @@ namespace Alura\DesignPattern\Command;
 
 use DateTimeImmutable;
 
+/* CommandHandler */
 class GerarPedidoHandler
 {
   public function __construct()

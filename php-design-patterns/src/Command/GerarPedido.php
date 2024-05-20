@@ -4,6 +4,7 @@ namespace Alura\DesignPattern\Command;
 
 use DateTimeImmutable;
 
+/* Command */
 class GerarPedido
 {
   private float $valorOrcamento;
