@@ -2,16 +2,16 @@
 
 namespace Alura\DesignPattern\Observer;
 
-use Alura\DesignPattern\Observer\AcoesAoGerarPerdido\CriarPedidoNoBanco;
-use Alura\DesignPattern\Observer\AcoesAoGerarPerdido\EnviarPedidoPorEmail;
-use Alura\DesignPattern\Observer\AcoesAoGerarPerdido\LogGerarPedido;
 use DateTimeImmutable;
+use SplObserver;
+use SplSubject;
 
 /* CommandHandler */
-class GerarPedidoHandler
+class GerarPedidoHandler implements SplSubject
 {
-  /** @var AcaoAposGerarPedido[] */
+  /** @var SplObserver[] */
   private array $acoesAposGerarPedido = [];
+  public Pedido $pedido;
 
   public function __construct()
   {
@@ -33,8 +33,24 @@ class GerarPedidoHandler
     $pedido->nomeCliente = $gerarPedido->getNomeCliente();
     $pedido->orcamento = $orcamento;
 
+    $this->pedido = $pedido;
+    $this->notify();
+  }
+
+  public function attach(SplObserver $observer)
+  {
+    $this->acoesAposGerarPedido[] = $observer;
+  }
+
+	public function detach(SplObserver $observer)
+  {
+
+  }
+
+	public function notify()
+  {
     foreach ($this->acoesAposGerarPedido as $acao) {
-      $acao->executaAcao($pedido);
+      $acao->update($this);
     }
   }
 }
